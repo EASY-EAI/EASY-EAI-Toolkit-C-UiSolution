@@ -1,32 +1,32 @@
-# Prerequisites
-*.d
+# Common build output directory names
+build/
+.build/
+_build/
+build-output/
+cmake-out/
+
+# Backup files for Emacs
+*~
+
+# Ignore Visual Studio Code files
+.vsbuild/
+.vscode/
 
 # Compiled Object files
 *.slo
 *.lo
 *.o
 *.obj
+moc_*
+qrc_*
+ui_*.h
 
-# Precompiled Headers
-*.gch
-*.pch
+Makefile
+*.pro.user
+.qmake.stash
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+# project files
+prj/
+Release/
 
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
+#easyeai-api

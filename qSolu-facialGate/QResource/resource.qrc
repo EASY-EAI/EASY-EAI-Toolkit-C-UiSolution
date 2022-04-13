@@ -1,0 +1,30 @@
+<RCC>
+    <qresource prefix="/">
+        <file>image/icon_num_btn.png</file>
+        <file>image/icon_num_btn_hover.png</file>
+        <file>image/icon_wifi_connect.png</file>
+        <file>image/icon_wifi_disconnect.png</file>
+        <file>image/img_bottombar_bg.png</file>
+        <file>image/img_tipsbar_bg.png</file>
+        <file>image/icon_clear_btn.png</file>
+        <file>image/icon_clear_btn_hover.png</file>
+        <file>image/icon_entry_btn.png</file>
+        <file>image/icon_entry_btn_hover.png</file>
+        <file>image/icon_redDot.png</file>
+        <file>image/icon_num0.png</file>
+        <file>image/icon_num1.png</file>
+        <file>image/icon_num2.png</file>
+        <file>image/icon_num3.png</file>
+        <file>image/icon_num4.png</file>
+        <file>image/icon_num5.png</file>
+        <file>image/icon_num6.png</file>
+        <file>image/icon_num7.png</file>
+        <file>image/icon_num8.png</file>
+        <file>image/icon_num9.png</file>
+        <file>image/icon_register_btn.png</file>
+        <file>image/icon_register_btn_hover.png</file>
+        <file>image/img_tipsbar_bg_warning.png</file>
+        <file>image/img_tipsbar_bg_error.png</file>
+        <file>image/img_tipsbar_bg_normal.png</file>
+    </qresource>
+</RCC>
