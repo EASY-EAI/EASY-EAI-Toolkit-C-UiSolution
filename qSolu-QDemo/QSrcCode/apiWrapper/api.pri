@@ -10,9 +10,6 @@ INCLUDEPATH += \
     ../easyeai-api/peripheral_api/display \
     ../easyeai-api/peripheral_api/camera \
 
-#HEADERS += \
-#    ../easyeai-api/common_api/system_opt/system_opt.h \
-
 LIBS += $$PWD/../../../easyeai-api/common_api/system_opt/*.a
 LIBS += $$PWD/../../../easyeai-api/peripheral_api/display/*.a  -ldrm
 LIBS += $$PWD/../../../easyeai-api/peripheral_api/camera/*.a -leasymedia -lrga -lrkfacial -lrkisp_api

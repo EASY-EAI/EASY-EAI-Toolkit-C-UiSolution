@@ -1,5 +1,5 @@
-#ifndef UIMANAGER_H
-#define UIMANAGER_H
+#ifndef __UIMANAGER_H__
+#define __UIMANAGER_H__
 
 #include <QObject>
 #include <QTimer>
@@ -61,4 +61,4 @@ private:
     pthread_t mTidManager;
 };
 
-#endif // UIMANAGER_H
+#endif // __UIMANAGER_H__

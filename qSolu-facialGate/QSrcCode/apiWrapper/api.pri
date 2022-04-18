@@ -15,9 +15,6 @@ INCLUDEPATH += \
     ../easyeai-api/peripheral_api/display \
     ../easyeai-api/peripheral_api/camera \
 
-#HEADERS += \
-#    ../easyeai-api/common_api/system_opt/system_opt.h \
-
 LIBS += $$PWD/../../../easyeai-api/algorithm_api/face_alignment/*.a -lrknn_api
 LIBS += $$PWD/../../../easyeai-api/algorithm_api/face_detect/*.a -lrknn_api
 LIBS += $$PWD/../../../easyeai-api/algorithm_api/face_recognition/*.a -lrknn_api
