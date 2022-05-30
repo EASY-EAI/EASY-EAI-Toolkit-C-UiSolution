@@ -22,7 +22,16 @@ public:
     explicit MainThread();
     ~MainThread();
 
-    static MainThread *instance() { return m_pSelf; }
+    static MainThread *instance()
+    {
+        if(m_pSelf == nullptr){
+            once_flag oc;
+            call_once(oc, [&] {
+                m_pSelf = new MainThread;
+            });
+        }
+        return m_pSelf;
+    }
     static void createMainThread();
 
     // AddRecord flag operation
@@ -38,6 +47,7 @@ public:
     int setNeedAddRec(bool bIsTrue);
 
     Mat mAlgoImage;
+    Mat mAlgoIRImage;
 private:
     bool mbNeedAddRec;
 

@@ -77,8 +77,12 @@ DataBaseMgr::~DataBaseMgr()
 
 void DataBaseMgr::createDataBaseMgr()
 {
-    if(m_pSelf == nullptr)
-        m_pSelf = new DataBaseMgr;
+    if(m_pSelf == nullptr){
+        once_flag oc;
+        call_once(oc, [&] {
+            m_pSelf = new DataBaseMgr;
+        });
+    }
 }
 
 void DataBaseMgr::init()

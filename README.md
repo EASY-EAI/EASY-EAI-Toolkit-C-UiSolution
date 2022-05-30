@@ -21,6 +21,11 @@ How to use：
 
 important update log:
 ---
+> 2022-05-30 : 
+> * Release easyeai-c-qtSolution-0.1.3
+>   * [update] QtSolution - QDemo
+>   * [update] QtSolution - facialGate
+>
 > 2022-04-13 : 
 > * Release easyeai-c-qtSolution-0.1.2
 >   * [new] QtSolution - QDemo

@@ -153,8 +153,12 @@ MsgAdapter::~MsgAdapter()
 
 void MsgAdapter::createMsgAdapter()
 {
-    if(m_pSelf == nullptr)
-        m_pSelf = new MsgAdapter;
+    if(m_pSelf == nullptr){
+        once_flag oc;
+        call_once(oc, [&] {
+            m_pSelf = new MsgAdapter;
+        });
+    }
 }
 
 void MsgAdapter::init()

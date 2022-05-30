@@ -70,8 +70,12 @@ Announcement::~Announcement()
 
 void Announcement::createAnnouncement()
 {
-    if(m_pSelf == nullptr)
-        m_pSelf = new Announcement;
+    if(m_pSelf == nullptr){
+        once_flag oc;
+        call_once(oc, [&] {
+            m_pSelf = new Announcement;
+        });
+    }
 }
 
 
@@ -190,7 +194,7 @@ void Announcement::setVolume(int volume)
     char cmd[128] = {0};
 
     sprintf(cmd, "amixer cset name='Master Playback Volume' %d,%d", 85*volume, 85*volume);
-    SYSTEM(cmd);
+    exec_cmd_by_system(cmd);
 }
 
 void Announcement::reloadCountDown()

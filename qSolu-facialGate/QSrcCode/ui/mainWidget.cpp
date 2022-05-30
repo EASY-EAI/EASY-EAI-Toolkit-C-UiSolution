@@ -240,7 +240,7 @@ void mainWidget::getSysDateTime()
     m_dateYear   = curDate/10000;
     m_dateMonth  = curDate%10000/100;
     m_dateDay    = curDate%100;
-    m_dateWeek   = calculateWeekDay(m_dateYear, m_dateMonth, m_dateDay)+1;
+    m_dateWeek   = calc_week_day(m_dateYear, m_dateMonth, m_dateDay)+1;
     m_timeHour   = curTime/10000;
     m_timeMin    = curTime%10000/100;
     m_timeSecond = curTime%100;
@@ -307,7 +307,7 @@ void mainWidget::updateSysIpParam()
     ipAddress.clear();
 
     char ip[16];
-    mSleep(200);    //读取ip前等到一段时间，避免未设好IP(需要一段等待时间)就马上读取的情况
+    msleep(200);    //读取ip前等到一段时间，避免未设好IP(需要一段等待时间)就马上读取的情况
     if(0 != get_local_Ip("eth0", ip, sizeof(ip)))
         return ;
 

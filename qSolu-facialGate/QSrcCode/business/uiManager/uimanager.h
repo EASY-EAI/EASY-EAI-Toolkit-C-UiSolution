@@ -18,7 +18,16 @@ public:
     explicit UIManager(QObject *parent = 0);
     ~UIManager();
 
-    static UIManager *instance() { return m_pSelf; }
+    static UIManager *instance()
+    {
+        if(m_pSelf == nullptr){
+            once_flag oc;
+            call_once(oc, [&] {
+                m_pSelf = new UIManager;
+            });
+        }
+        return m_pSelf;
+    }
     static void createUIManager();
 
     /// handle >>>>: 处理其他模块过来输入的数据

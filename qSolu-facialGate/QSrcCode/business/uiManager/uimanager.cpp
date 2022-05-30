@@ -123,8 +123,12 @@ UIManager::~UIManager()
 
 void UIManager::createUIManager()
 {
-    if(m_pSelf == NULL)
-        m_pSelf = new UIManager;
+    if(m_pSelf == nullptr){
+        once_flag oc;
+        call_once(oc, [&] {
+            m_pSelf = new UIManager;
+        });
+    }
 }
 
 void UIManager::setSysPublicy(void *cpPublicy)

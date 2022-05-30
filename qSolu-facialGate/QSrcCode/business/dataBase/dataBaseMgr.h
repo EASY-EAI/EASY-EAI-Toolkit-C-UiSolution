@@ -11,7 +11,16 @@ public:
     explicit DataBaseMgr();
     ~DataBaseMgr();
 
-    static DataBaseMgr *instance() { return m_pSelf; }
+    static DataBaseMgr *instance()
+    {
+        if(m_pSelf == nullptr){
+            once_flag oc;
+            call_once(oc, [&] {
+                m_pSelf = new DataBaseMgr;
+            });
+        }
+        return m_pSelf;
+    }
     static void createDataBaseMgr();
 
     void init();

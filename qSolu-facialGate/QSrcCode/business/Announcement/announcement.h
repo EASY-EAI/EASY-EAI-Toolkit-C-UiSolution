@@ -16,7 +16,16 @@ public:
     explicit Announcement();
     ~Announcement();
 
-    static Announcement *instance() { return m_pSelf; }
+    static Announcement *instance()
+    {
+        if(m_pSelf == nullptr){
+            once_flag oc;
+            call_once(oc, [&] {
+                m_pSelf = new Announcement;
+            });
+        }
+        return m_pSelf;
+    }
     static void createAnnouncement();
 
     /// handle >>>>: 处理其他模块过来输入的数据

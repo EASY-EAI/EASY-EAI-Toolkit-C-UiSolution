@@ -1,6 +1,7 @@
 // ============================ Linux C ============================
 #include "system.h"
 // ========================== easyeai_api ==========================
+#include "Geometry/Geometry.h"
 #include "FaceAlignment/FaceAlignment.h"
 #include "FaceDetect/FaceDetect.h"
 #include "FaceRecognition/FaceRecognition.h"
@@ -31,6 +32,7 @@ void *AnalysisThreadBody(void *arg)
     rknn_context detect_ctx;
     std::vector<det> detect_result;
     Point2f points[5];
+    s32Rect_t irRect, rgbRect;
     printf("face detect init!\n");
     ret = face_detect_init(&detect_ctx, "./face_detect.model");
     if( ret < 0){
@@ -52,19 +54,34 @@ void *AnalysisThreadBody(void *arg)
     MainThread::instance()->SendDataToDataBase(MSG_DBCMD_GETPERSONNUM, sizeof(personNum), &personNum);
 
     uint64_t start_time, end_time;
-    Mat image;
+    Mat image,irImage;
     Mat face_align;
     float similarity; //特征值相似度比对
     int face_index = 0;
     while(1)
     {
-        if(pSelf->mAlgoImage.empty()) {
+        if(pSelf->mAlgoImage.empty() || pSelf->mAlgoIRImage.empty()) {
             usleep(5);
             continue;
         }
         pSelf->imgLock();
+        irImage = pSelf->mAlgoIRImage.clone();
         image = pSelf->mAlgoImage.clone();
         pSelf->imgUnLock();
+
+        // 活体检测，计算出人脸位置
+        ret = face_detect_run(detect_ctx, irImage, detect_result);
+        if(ret <= 0){   //非活体
+            // 识别结果数据，复位
+            pPara->x = 0; pPara->y = 0; pPara->w = 0; pPara->h = 0;
+            pSelf->setNeedAddRec(false);
+            usleep(1000);
+            continue;
+        }
+        irRect.left   = (uint32_t)(detect_result[0].box.x);
+        irRect.top    = (uint32_t)(detect_result[0].box.y);
+        irRect.right  = (uint32_t)(detect_result[0].box.x + detect_result[0].box.width);
+        irRect.bottom = (uint32_t)(detect_result[0].box.y + detect_result[0].box.height);
 
         // 人脸检测，计算出人脸位置
         ret = face_detect_run(detect_ctx, image, detect_result);
@@ -79,6 +96,24 @@ void *AnalysisThreadBody(void *arg)
         pPara->y = (uint32_t)(detect_result[0].box.y);
         pPara->w = (uint32_t)(detect_result[0].box.width);
         pPara->h = (uint32_t)(detect_result[0].box.height);
+        rgbRect.left   = pPara->x;
+        rgbRect.top    = pPara->y;
+        rgbRect.right  = pPara->x + pPara->w;
+        rgbRect.bottom = pPara->y + pPara->h;
+#if 0
+        // 计算ir人脸与rgb人脸框重合度(最高为1.0)
+        printf("ir[(%d, %d)--(%d, %d)] rgb[(%d, %d)--(%d, %d)],  IoU is %lf\n", irRect.left, irRect.top, irRect.right, irRect.bottom
+                                                                              , rgbRect.left, rgbRect.top, rgbRect.right, rgbRect.bottom
+                                                                              , calc_intersect_of_union(irRect, rgbRect));
+#endif
+        if(calc_intersect_of_union(irRect, rgbRect) <= 0.5){
+            // 识别结果数据，复位
+            pPara->x = 0; pPara->y = 0; pPara->w = 0; pPara->h = 0;
+            pSelf->setNeedAddRec(false);
+            usleep(1000);
+            continue;
+        }
+
         for (int i = 0; i < (int)detect_result[0].landmarks.size(); ++i) {
             points[i].x = (int)detect_result[0].landmarks[i].x;
             points[i].y = (int)detect_result[0].landmarks[i].y;
@@ -201,8 +236,10 @@ void *CapAndDisThreadBody(void *arg)
     }
 
     int skip = 0;
+    int rgbRet,irRet;
     int ret = 0;
-    char *pbuf = NULL;
+    char *pRGBbuf = NULL;
+    char *pIRbuf = NULL;
 
     Mat image;
 
@@ -214,12 +251,22 @@ void *CapAndDisThreadBody(void *arg)
     ret = rgbcamera_init(CAMERA_WIDTH, CAMERA_HEIGHT, 90);
     if (ret) {
         printf("error: %s, %d\n", __func__, __LINE__);
+        goto exit4;
+    }
+    ret = ircamera_init(CAMERA_WIDTH, CAMERA_HEIGHT, 270);
+    if (ret) {
+        printf("error: %s, %d\n", __func__, __LINE__);
         goto exit3;
     }
 
-    pbuf = NULL;
-    pbuf = (char *)malloc(IMAGE_SIZE);
-    if (!pbuf) {
+    pRGBbuf = (char *)malloc(IMAGE_SIZE);
+    if (!pRGBbuf) {
+        printf("error: %s, %d\n", __func__, __LINE__);
+        ret = -1;
+        goto exit3;
+    }
+    pIRbuf = (char *)malloc(IMAGE_SIZE);
+    if (!pIRbuf) {
         printf("error: %s, %d\n", __func__, __LINE__);
         ret = -1;
         goto exit2;
@@ -228,7 +275,12 @@ void *CapAndDisThreadBody(void *arg)
     // 跳过前10帧
     skip = 10;
     while(skip--) {
-        ret = rgbcamera_getframe(pbuf);
+        ret = rgbcamera_getframe(pRGBbuf);
+        if (ret) {
+            printf("error: %s, %d\n", __func__, __LINE__);
+            goto exit1;
+        }
+        ret = rgbcamera_getframe(pIRbuf);
         if (ret) {
             printf("error: %s, %d\n", __func__, __LINE__);
             goto exit1;
@@ -248,30 +300,37 @@ void *CapAndDisThreadBody(void *arg)
     while(1){
         // 3.1、取流
         pSelf->imgLock();
-        ret = rgbcamera_getframe(pbuf);
-        if (ret) {
+        rgbRet = rgbcamera_getframe(pRGBbuf);
+        irRet  = ircamera_getframe(pIRbuf);
+        if ((0 != rgbRet) || (0 != irRet)) {
             printf("error: %s, %d\n", __func__, __LINE__);
             pSelf->imgUnLock();
             continue;
         }
-        pSelf->mAlgoImage = Mat(CAMERA_HEIGHT, CAMERA_WIDTH, CV_8UC3, pbuf);
+        pSelf->mAlgoIRImage = Mat(CAMERA_HEIGHT, CAMERA_WIDTH, CV_8UC3, pIRbuf);
+        pSelf->mAlgoImage = Mat(CAMERA_HEIGHT, CAMERA_WIDTH, CV_8UC3, pRGBbuf);
         image = pSelf->mAlgoImage.clone();
+//        image = pSelf->mAlgoIRImage.clone();
         pSelf->imgUnLock();
 
         // 3.2、显示
         // 画框
         rectangle(image, Rect(pPara->x, pPara->y,pPara-> w, pPara->h), Scalar(pPara->color[0], pPara->color[1], pPara->color[2]), 3);
-        disp_commit(image.data, 0, 0);
+        disp_commit(image.data, IMAGE_SIZE);
 
         usleep(20*1000);
     }
 
 exit1:
-    free(pbuf);
-    pbuf = NULL;
+    free(pIRbuf);
+    pIRbuf = NULL;
 exit2:
-    rgbcamera_exit();
+    free(pRGBbuf);
+    pRGBbuf = NULL;
+    ircamera_exit();
 exit3:
+    rgbcamera_exit();
+exit4:
     return NULL;
 }
 
@@ -313,7 +372,7 @@ MainThread::MainThread() :
     // 创建用于存放用户头像的目录
     char mkPathCmd[128]={0};
     sprintf(mkPathCmd, "mkdir %s", IMAGE_PATH);
-    SYSTEM(mkPathCmd);
+    exec_cmd_by_system(mkPathCmd);
     //make_directory(IMAGE_PATH);
 
     // 创建图像互斥锁
@@ -349,8 +408,12 @@ MainThread::~MainThread()
 
 void MainThread::createMainThread()
 {
-    if(m_pSelf == NULL)
-        m_pSelf = new MainThread;
+    if(m_pSelf == nullptr){
+        once_flag oc;
+        call_once(oc, [&] {
+            m_pSelf = new MainThread;
+        });
+    }
 }
 
 void MainThread::initImgLock()

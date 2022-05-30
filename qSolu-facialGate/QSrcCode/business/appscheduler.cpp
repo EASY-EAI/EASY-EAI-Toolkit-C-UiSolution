@@ -24,44 +24,34 @@ AppScheduler::AppScheduler()
     InitBusinessModel();
     /// 1 - 创建数据库
     DataBaseMgr::createDataBaseMgr();
-    //   1.1 - 注册数据库
-    if(DataBaseMgr::instance()){
-        DataBaseMgr::instance()->SetScheduler(this);
-        Register(DATABASE_MANAGER, DataBaseMgrCallback);
-    }
+    //1.1 - 注册数据库
+    DataBaseMgr::instance()->SetScheduler(this);
+    Register(DATABASE_MANAGER, DataBaseMgrCallback);
 
     /// 2 - 创建主逻辑业务块  - 用于执行周期性逻辑代码
     MainThread::createMainThread();
-    //   2.1 - 注册主逻辑业务块
-    if(MainThread::instance()){
-        MainThread::instance()->SetScheduler(this);
-        Register(MAIN_THREAD, MainThreadCallback);
-    }
+    //2.1 - 注册主逻辑业务块
+    MainThread::instance()->SetScheduler(this);
+    Register(MAIN_THREAD, MainThreadCallback);
 
     /// 3 - 创建UI
     UIManager::createUIManager();
-    //   3.1 - 注册UI
-    if(UIManager::instance()){
-        UIManager::instance()->SetScheduler(this);
-        Register(UI_MANAGER, UIManagerCallback);
-    }
+    //3.1 - 注册UI
+    UIManager::instance()->SetScheduler(this);
+    Register(UI_MANAGER, UIManagerCallback);
 
     /// 4 - 创建语音播报器
     Announcement::createAnnouncement();
-    //   4.1 - 注册语音播报器
-    if(Announcement::instance()){
-        Announcement::instance()->SetScheduler(this);
-        Register(ANNOUNCEMENT, AnnouncementCallback);
-    }
+    //4.1 - 注册语音播报器
+    Announcement::instance()->SetScheduler(this);
+    Register(ANNOUNCEMENT, AnnouncementCallback);
 
     /// 5 - 创建消息适配器  - 用于分发外部设备的协议处理
     MsgAdapter::createMsgAdapter();
-    //   5.1 - 注册消息适配器
-    if(MsgAdapter::instance()){
-        MsgAdapter::instance()->init();
-        MsgAdapter::instance()->SetScheduler(this);
-        Register(MSG_ADAPTER, MsgAdapterCallback);
-    }
+    //5.1 - 注册消息适配器
+    MsgAdapter::instance()->init();
+    MsgAdapter::instance()->SetScheduler(this);
+    Register(MSG_ADAPTER, MsgAdapterCallback);
 
 #if 0
     /// 6 - 创建人脸识别管理模块 - 用于模块化识别流程的接口（暂未完善）

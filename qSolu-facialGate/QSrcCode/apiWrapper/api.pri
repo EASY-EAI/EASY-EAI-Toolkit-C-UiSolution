@@ -6,23 +6,27 @@
 ## Qt工程  针对easyapi_api目录与库的引用
 ## ========================== easyeai_api ========================== ##
 INCLUDEPATH += \
+    ../easyeai-api/algorithm_api/geometry \
     ../easyeai-api/algorithm_api/face_alignment \
     ../easyeai-api/algorithm_api/face_detect \
     ../easyeai-api/algorithm_api/face_recognition \
     ../easyeai-api/common_api/file_opt \
     ../easyeai-api/common_api/string_opt \
     ../easyeai-api/common_api/system_opt \
+    ../easyeai-api/common_api/ini_wrapper \
     ../easyeai-api/peripheral_api/display \
     ../easyeai-api/peripheral_api/camera \
 
-LIBS += $$PWD/../../../easyeai-api/algorithm_api/face_alignment/*.a -lrknn_api
-LIBS += $$PWD/../../../easyeai-api/algorithm_api/face_detect/*.a -lrknn_api
-LIBS += $$PWD/../../../easyeai-api/algorithm_api/face_recognition/*.a -lrknn_api
-LIBS += $$PWD/../../../easyeai-api/common_api/file_opt/*.a
-LIBS += $$PWD/../../../easyeai-api/common_api/string_opt/*.a
-LIBS += $$PWD/../../../easyeai-api/common_api/system_opt/*.a
-LIBS += $$PWD/../../../easyeai-api/peripheral_api/display/*.a  -ldrm
-LIBS += $$PWD/../../../easyeai-api/peripheral_api/camera/*.a -leasymedia -lrga -lrkfacial -lrkisp_api
+LIBS += -L$$PWD/../../../easyeai-api/algorithm_api/geometry/         -lgeometry
+LIBS += -L$$PWD/../../../easyeai-api/algorithm_api/face_alignment/   -lface_alignment   -lrknn_api
+LIBS += -L$$PWD/../../../easyeai-api/algorithm_api/face_detect/      -lface_detect      -lrknn_api
+LIBS += -L$$PWD/../../../easyeai-api/algorithm_api/face_recognition/ -lface_recognition -lrknn_api
+LIBS += -L$$PWD/../../../easyeai-api/common_api/file_opt/            -lfile_opt
+LIBS += -L$$PWD/../../../easyeai-api/common_api/string_opt/          -lstring_opt
+LIBS += -L$$PWD/../../../easyeai-api/common_api/system_opt/          -lsystem_opt -pthread
+LIBS += -L$$PWD/../../../easyeai-api/common_api/ini_wrapper/         -lini_wrapper -lini
+LIBS += -L$$PWD/../../../easyeai-api/peripheral_api/display/         -ldisplay -leasymedia
+LIBS += -L$$PWD/../../../easyeai-api/peripheral_api/camera/          -lcamera  -leasymedia -lrga -lrkfacial -lrkisp_api
 ## ================================================================= ##
 
 
@@ -40,10 +44,12 @@ SOURCES += \
 HEADERS += \
     $$PWD/Camera/Camera.h \
     $$PWD/Display/Display.h \
+    $$PWD/Geometry/Geometry.h \
     $$PWD/FaceAlignment/FaceAlignment.h \
     $$PWD/FaceDetect/FaceDetect.h \
     $$PWD/FaceRecognition/FaceRecognition.h \
     $$PWD/FileOpt/FileOpt.h \
     $$PWD/StringOpt/StringOpt.h \
     $$PWD/SystemOpt/SystemOpt.h \
+    $$PWD/IniWrapper/IniWrapper.h \
 ## ================================================================= ##

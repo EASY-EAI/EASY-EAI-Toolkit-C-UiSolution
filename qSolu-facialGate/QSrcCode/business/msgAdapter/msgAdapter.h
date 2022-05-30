@@ -19,7 +19,16 @@ public:
     explicit MsgAdapter();
     ~MsgAdapter();
 
-    static MsgAdapter *instance() { return m_pSelf; }
+    static MsgAdapter *instance()
+    {
+        if(m_pSelf == nullptr){
+            once_flag oc;
+            call_once(oc, [&] {
+                m_pSelf = new MsgAdapter;
+            });
+        }
+        return m_pSelf;
+    }
     static void createMsgAdapter();
     void init();
 
