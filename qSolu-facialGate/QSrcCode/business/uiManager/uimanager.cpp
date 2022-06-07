@@ -104,6 +104,7 @@ UIManager::UIManager(QObject *parent) :
 //    scene->addItem(mpVideoItem);
     ///> 2.2-向场景中加入Widget
     mpMainWidget = new mainWidget;
+    mpMainWidget->setMinimumSize(m_UIViewRect.width(), m_UIViewRect.height());
     scene->addWidget(mpMainWidget);
 
     scene->setSceneRect(scene->itemsBoundingRect());
