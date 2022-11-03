@@ -11,7 +11,8 @@
 [查阅入门指南](https://www.easy-eai.com/document_details/3/133)
 
 如果您具备丰富的嵌入式C语言开发经验，您可以：  
-[直接查阅EASYEAI开发实例](https://www.easy-eai.com/document_details/3/31)
+[直接先更新应用开发环境](https://www.easy-eai.com/document_details/3/135)  
+[再查阅EASYEAI开发实例](https://www.easy-eai.com/document_details/3/31)
 
 
 使用方法：  
