@@ -8,6 +8,8 @@
 #include "system.h"
 #include "SystemOpt/SystemOpt.h"
 
+#include "Network/Network.h"
+
 #include "uiManager/uimanager.h"
 
 #include <QString>

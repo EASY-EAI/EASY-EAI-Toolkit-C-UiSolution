@@ -7,6 +7,7 @@
 #include "FaceRecognition/FaceRecognition.h"
 #include "FileOpt/FileOpt.h"
 #include "SystemOpt/SystemOpt.h"
+#include "Network/Network.h"
 #include "Camera/Camera.h"
 #include "Display/Display.h"
 // ============================ Project ============================
@@ -188,9 +189,9 @@ void *AnalysisThreadBody(void *arg)
             }
         }else{
             // 显示红框
-            pPara->color[0] = 255;
+            pPara->color[0] = 0;
             pPara->color[1] = 0;
-            pPara->color[2] = 0;
+            pPara->color[2] = 255;
             // 按键被按下，录入特征值
             if(pSelf->needAddRecord()){
                 pSelf->setNeedAddRec(false);

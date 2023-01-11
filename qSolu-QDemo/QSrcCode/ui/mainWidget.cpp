@@ -3,6 +3,7 @@
 #include "ui_mainWidget.h"
 #include "system.h"
 #include "SystemOpt/SystemOpt.h"
+#include "Network/Network.h"
 
 #include <QString>
 #include <QList>

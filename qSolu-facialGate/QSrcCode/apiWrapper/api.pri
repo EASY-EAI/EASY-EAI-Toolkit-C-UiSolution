@@ -14,6 +14,7 @@ INCLUDEPATH += \
     ../easyeai-api/common_api/string_opt \
     ../easyeai-api/common_api/system_opt \
     ../easyeai-api/common_api/ini_wrapper \
+    ../easyeai-api/peripheral_api/network \
     ../easyeai-api/peripheral_api/display \
     ../easyeai-api/peripheral_api/camera \
 
@@ -25,6 +26,7 @@ LIBS += -L$$PWD/../../../easyeai-api/common_api/file_opt/            -lfile_opt
 LIBS += -L$$PWD/../../../easyeai-api/common_api/string_opt/          -lstring_opt
 LIBS += -L$$PWD/../../../easyeai-api/common_api/system_opt/          -lsystem_opt -pthread
 LIBS += -L$$PWD/../../../easyeai-api/common_api/ini_wrapper/         -lini_wrapper -lini
+LIBS += -L$$PWD/../../../easyeai-api/peripheral_api/network/         -lnetwork
 LIBS += -L$$PWD/../../../easyeai-api/peripheral_api/display/         -ldisplay -leasymedia
 LIBS += -L$$PWD/../../../easyeai-api/peripheral_api/camera/          -lcamera  -leasymedia -lrga -lrkfacial -lrkisp_api -lrkaiq
 ## ================================================================= ##
@@ -43,6 +45,7 @@ SOURCES += \
 
 HEADERS += \
     $$PWD/Camera/Camera.h \
+    $$PWD/Network/Network.h \
     $$PWD/Display/Display.h \
     $$PWD/Geometry/Geometry.h \
     $$PWD/FaceAlignment/FaceAlignment.h \
