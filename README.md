@@ -22,6 +22,12 @@ How to use：
 
 important update log:
 ---
+> 2023-03-31 : 
+> * Release easyeai-c-qtSolution-1.0.0
+>   * Adapting ubuntu firmware
+>   * Adapting easyeai-api v1.0.0
+>   * Incompatible buildroot firmware(The uiSolution for the buildroot version is located in the buildroot branch of this repository)
+>
 > 2022-05-30 : 
 > * Release easyeai-c-qtSolution-0.1.3
 >   * [update] QtSolution - QDemo

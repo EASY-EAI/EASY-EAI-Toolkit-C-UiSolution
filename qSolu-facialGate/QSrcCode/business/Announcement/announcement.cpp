@@ -316,7 +316,7 @@ void Announcement::loadFloatWav(int num, std::queue<string> &fileList)
     }
 }
 
-char *Announcement::getFilePath(int num)
+const char *Announcement::getFilePath(int num)
 {
     switch (num) {
     case 0:

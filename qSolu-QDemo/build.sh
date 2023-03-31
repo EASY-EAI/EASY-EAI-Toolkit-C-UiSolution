@@ -6,16 +6,19 @@ SHELL_FOLDER=$(cd "$(dirname "$0")";pwd)
 cd $SHELL_FOLDER
 CUR_DIR_NAME=`basename "$SHELL_FOLDER"`
 
+APP_DIR=${SYSROOT}/userdata/UiSolu
+APP_NAME=${CUR_DIR_NAME}
+
 ##  Build:   ./build.sh
 ##  reBuild: ./build.sh all
 ##  Clear:   ./build.sh clear
 ## ========================================
 set +e
 if [ "$1" = "all" ]; then
-	rm Makefile
+	rm -f Makefile
 	rm -rf Release
 elif [ "$1" = "clear" ];then
-	rm Makefile
+	rm -f Makefile
 	rm -rf Release
 	exit 0
 fi
@@ -23,14 +26,15 @@ set -e
 
 if [ ! -d "Release" ]; then
 	# this cmd include create dir operation(mkdir Release/)
-	/opt/rv1126_rv1109_sdk/buildroot/output/rockchip_face_board/host/bin/qmake $CUR_DIR_NAME.pro
+	${SYSROOT}/usr/bin/qmake $APP_NAME.pro
 fi
 
 make
 
 ##  custom shell
 ## ========================================
-#adb push Release/$CUR_DIR_NAME /userdata/QSolu/$CUR_DIR_NAME
+#adb push Release/$APP_NAME ${APP_DIR}/$APP_NAME
+mkdir -p ${APP_DIR} && cp Release/$APP_NAME ${APP_DIR}
 
 #rm -rf rootfs
 #mkdir rootfs

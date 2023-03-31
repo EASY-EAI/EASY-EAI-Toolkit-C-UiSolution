@@ -1,0 +1,31 @@
+#!/bin/sh 
+
+set -e 
+
+SHELL_FOLDER=$(cd "$(dirname "$0")";pwd)
+cd $SHELL_FOLDER
+CUR_DIR_NAME=`basename "$SHELL_FOLDER"`
+
+APP_DIR=/userdata/UiSolu
+APP_NAME=$CUR_DIR_NAME
+
+adb connect 192.168.253.2 > /dev/null
+
+if [ $# != 1 ] ; then
+	echo "Error: invalid parameter"
+	echo "=========================="
+	echo "Usage :"
+	echo "    ./app start"
+	echo "    ./app sttop"
+fi
+
+
+set +e
+if [ "$1" = "start" ]; then
+	adb shell $APP_DIR/$APP_NAME &
+elif [ "$1" = "stop" ];then
+	adb shell killall -9 $APP_NAME
+fi
+set -e
+
+exit 0

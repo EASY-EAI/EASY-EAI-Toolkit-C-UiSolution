@@ -48,7 +48,7 @@ private:
 
     void loadNumWav(int num, std::queue<std::string> &fileList);
     void loadFloatWav(int num, std::queue<std::string> &fileList);
-    char *getFilePath(int num);
+    const char *getFilePath(int num);
 
     // music
     bool m_MusicPlaying;

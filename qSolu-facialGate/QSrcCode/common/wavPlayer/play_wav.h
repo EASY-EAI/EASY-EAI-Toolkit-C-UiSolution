@@ -33,10 +33,6 @@
 #ifndef __PLAY_WAV_H__
 #define __PLAY_WAV_H__
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #include <stdbool.h>
 
 #define AUTHORIZE_FAIL_WAV "./audio/authorize_fail.wav"
@@ -57,9 +53,5 @@ void play_wav_signal(const char *name);
 void play_wav_stop();
 int play_wav_thread_init(void);
 void play_wav_thread_exit(void);
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif
