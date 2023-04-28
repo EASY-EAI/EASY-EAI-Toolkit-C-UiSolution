@@ -181,7 +181,6 @@ void *AnalysisThreadBody(void *arg)
                 recData.featureLen = sizeof(face_feature);
                 ret = MainThread::instance()->SendDataToDataBase(MSG_DBCMD_ADD_REC_BYINDEX, sizeof(recData), &recData);
                 if(0 == ret){
-                    cvtColor(face_align, face_align, COLOR_BGR2RGB);
                     imwrite(face_path, face_align);
                 }
                 // 更新数据库人数
@@ -210,7 +209,6 @@ void *AnalysisThreadBody(void *arg)
                 if(0 == ret){
                     char face_path[128] = {0};
                     sprintf(face_path, "%s%s.jpeg", IMAGE_PATH, nameStr);
-                    cvtColor(face_align, face_align, COLOR_BGR2RGB);
                     imwrite(face_path, face_align);
                 }
                 // 更新数据库人数
