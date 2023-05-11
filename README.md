@@ -2,41 +2,41 @@
 <br/>
 
 
-[中文](README_CN.md)
+[English](README_EN.md)
 
 <br />
 <br />
 
-If you first come into contact with this project. You can do:  
-[reference the Getting Start Guide](https://www.easy-eai.com/document_details/3/133)
+如果您初次接触本项目，您可以：  
+[查阅入门指南](https://www.easy-eai.com/document_details/3/133)
 
-If you have extensive experience in embedded C development. You can do:  
-[update the application development environment first](https://www.easy-eai.com/document_details/3/135)  
-[reference the EASYEAI development Example](https://www.easy-eai.com/document_details/3/31)
+如果您具备丰富的嵌入式C语言开发经验，您可以：  
+[直接先更新应用开发环境](https://www.easy-eai.com/document_details/3/135)  
+[再查阅EASYEAI开发实例](https://www.easy-eai.com/document_details/3/31)
 
 
-How to use：  
-[1] - Clone this Git Storage to Local   
-[2] - Enter the corresponding Solution directory of this repository: ./build.sh   
-[3] - The relevant Solution will be generated under Release/ in the specific Solution directory: qSolu-xxx
+使用方法：  
+[1] - 克隆本GitHub仓库   
+[2] - 进入具体的Solution目录执行：./build.sh    
+[3] - 则会在具体的Solution目录的Release/下生成相关的Solution：qSolu-xxx
 
-important update log:
+重要更新：
 ---
 > 2023-03-31 : 
-> * Release easyeai-c-qtSolution-1.0.0
->   * Adapting ubuntu firmware
->   * Adapting easyeai-api v1.0.0
->   * Incompatible buildroot firmware(The uiSolution for the buildroot version is located in the buildroot branch of this repository)
+> * 发布easyeai-c-uiSolution-1.0.0
+>   * 匹配 ubuntu 系统固件
+>   * 匹配 easyeai-api v1.0.0
+>   * 不兼容buildroot系统固件(buildroot版本的uiSolution在本仓库的buildroot分支内)
 >
 > 2022-05-30 : 
-> * Release easyeai-c-qtSolution-0.1.3
->   * [update] QtSolution - QDemo
->   * [update] QtSolution - facialGate
+> * 发布easyeai-c-uiSolution-0.1.3
+>   * [更新] Qt方案用例 (不带调度框架)
+>   * [更新] 人脸机方案 (带调度框架)
 >
 > 2022-04-13 : 
-> * Release easyeai-c-qtSolution-0.1.2
->   * [new] QtSolution - QDemo
->   * [new] QtSolution - facialGate
+> * 发布easyeai-c-uiSolution-0.1.2
+>   * [新增] Qt方案用例 (不带调度框架)
+>   * [新增] 人脸机方案 (带调度框架)
 >
 > 2021-10-28 : 
-> * create this project
+> * 创建本项目

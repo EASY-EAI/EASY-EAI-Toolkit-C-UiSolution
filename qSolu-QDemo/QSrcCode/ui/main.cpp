@@ -1,60 +1,38 @@
 #include <QApplication>
 #include <QTextCodec>
 
+#include <opencv2/opencv.hpp>
+
 #include "system.h"
 
 #include "SystemOpt/SystemOpt.h"
-#include "Camera/Camera.h"
 #include "Display/Display.h"
 
 #include "mainWidget.h"
 
-#define CAMERA_WIDTH	720
-#define CAMERA_HEIGHT	1280
 #define	DISP_WIDTH		720
 #define	DISP_HEIGHT		1280
-#define	IMGRATIO		3
-#define	IMAGE_SIZE		(CAMERA_WIDTH*CAMERA_HEIGHT*IMGRATIO)
-void *displayCamera(void *para)
+void *displayScrean(void *para)
 {
-    char *pbuf = NULL;
-    int ret = 0;
-    ret = rgbcamera_init(CAMERA_WIDTH, CAMERA_HEIGHT, 90);
+Q_UNUSED(para);
+    disp_preset_uiLayer(SYS_TRUE);
+    int ret = disp_init(DISP_WIDTH, DISP_HEIGHT); //RGB888 default
     if (ret) {
         printf("error func:%s, line:%d\n", __func__, __LINE__);
-        goto exit3;
+        return NULL;
     }
 
-    disp_preset_uiLayer(SYS_TRUE);
-    ret = disp_init(DISP_WIDTH, DISP_HEIGHT); //RGB888 default
-    if (ret) {
-        printf("error func:%s, line:%d\n", __func__, __LINE__);
-        goto exit2;
-    }
-    pbuf = (char *)malloc(IMAGE_SIZE);
-    if (!pbuf) {
-        printf("error: %s, %d\n", __func__, __LINE__);
-        ret = -1;
-        goto exit1;
-    }
+    cv::Mat image;
+    image = cv::imread("background.jpg", 1);
 
     while(1) {
-        ret = rgbcamera_getframe(pbuf);
         if (!ret) {
-            disp_commit(pbuf, IMAGE_SIZE);
+            disp_commit(image.data, image.cols*image.rows*3);
         }else {
             printf("error: %s, %d\n", __func__, __LINE__);
             break;
         }
     }
-
-    free(pbuf);
-    pbuf = NULL;
-exit1:
-    disp_exit();
-exit2:
-    rgbcamera_exit();
-exit3:
     return NULL;
 }
 
@@ -66,7 +44,7 @@ int main(int argc, char *argv[])
     QTextCodec::setCodecForLocale(codec);
 
     pthread_t pid;
-    if(0 != CreateNormalThread(displayCamera, NULL ,&pid)){
+    if(0 != CreateNormalThread(displayScrean, NULL ,&pid)){
         return a.exec();
     }
 

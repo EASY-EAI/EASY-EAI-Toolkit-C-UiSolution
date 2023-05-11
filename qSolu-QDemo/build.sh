@@ -30,11 +30,14 @@ if [ ! -d "Release" ]; then
 fi
 
 make
+cp QResource/image/background.jpg Release
 
 ##  custom shell
 ## ========================================
 #adb push Release/$APP_NAME ${APP_DIR}/$APP_NAME
-mkdir -p ${APP_DIR} && cp Release/$APP_NAME ${APP_DIR}
+mkdir -p ${APP_DIR}
+cp Release/background.jpg ${APP_DIR}
+cp Release/$APP_NAME ${APP_DIR}
 
 #rm -rf rootfs
 #mkdir rootfs
