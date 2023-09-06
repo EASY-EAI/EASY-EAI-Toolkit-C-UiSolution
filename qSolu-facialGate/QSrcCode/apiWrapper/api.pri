@@ -28,7 +28,7 @@ LIBS += -L$$PWD/../../../easyeai-api/common_api/system_opt/          -lsystem_op
 LIBS += -L$$PWD/../../../easyeai-api/common_api/ini_wrapper/         -lini_wrapper -lini
 LIBS += -L$$PWD/../../../easyeai-api/peripheral_api/network/         -lnetwork -lyaml-cpp
 LIBS += -L$$PWD/../../../easyeai-api/peripheral_api/display/         -ldisplay -leasymedia
-LIBS += -L$$PWD/../../../easyeai-api/peripheral_api/camera/          -lcamera  -leasymedia -lrga -lrkisp_api -lrkaiq
+LIBS += -L$$PWD/../../../easyeai-api/peripheral_api/camera/          -lcamera  -leasymedia -lrockchip_mpp -lrga -lrkisp_api -lrkaiq
 ## ================================================================= ##
 
 

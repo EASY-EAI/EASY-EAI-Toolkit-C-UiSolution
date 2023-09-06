@@ -102,9 +102,9 @@ void mainWidget::updateSysDateTime()
     strDate.clear();
     strDate.append(QString::number(m_dateYear));
     strDate.append(tr("年"));
-    strDate.append(QString::number(m_dateMonth).sprintf("%02d",m_dateMonth));
+    strDate.append(QString::number(m_dateMonth).asprintf("%02d",m_dateMonth));
     strDate.append(tr("月"));
-    strDate.append(QString::number(m_dateDay).sprintf("%02d",m_dateDay));
+    strDate.append(QString::number(m_dateDay).asprintf("%02d",m_dateDay));
     strDate.append(tr("日"));
 
     QString strWeek;
@@ -137,9 +137,9 @@ void mainWidget::updateSysDateTime()
 
     QString strTime;
     strTime.clear();
-    strTime.append(QString::number(m_timeHour).sprintf("%02d",m_timeHour));
+    strTime.append(QString::number(m_timeHour).asprintf("%02d",m_timeHour));
     strTime.append(":");
-    strTime.append(QString::number(m_timeMin).sprintf("%02d",m_timeMin));
+    strTime.append(QString::number(m_timeMin).asprintf("%02d",m_timeMin));
 //    strTime.append(":");
 //    strTime.append(QString::number(m_timeSecond).sprintf("%02d",m_timeSecond));
 

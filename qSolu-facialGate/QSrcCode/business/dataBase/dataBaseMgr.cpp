@@ -15,7 +15,7 @@ int DataBaseMgrCallback(void *data)
     memcpy(&dataBaseMgr, data, sizeof(DataBase_t));
 
     if(0 < dataBaseMgr.dataLen && NULL != dataBaseMgr.data){
-        pCmdContent = malloc(dataBaseMgr.dataLen + 1);
+        pCmdContent = (char *)malloc(dataBaseMgr.dataLen + 1);
         memset(pCmdContent, 0, dataBaseMgr.dataLen + 1);
         memcpy(pCmdContent, dataBaseMgr.data, dataBaseMgr.dataLen);
     }
