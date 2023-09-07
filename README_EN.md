@@ -22,6 +22,10 @@ How to use：
 
 important update log:
 ---
+> 2023-09-07 : 
+> * Release easyeai-c-uiSolution-1.1.0
+>   * update easyeai-api-1.1.0
+>
 > 2023-03-31 : 
 > * Release easyeai-c-qtSolution-1.0.0
 >   * Adapting ubuntu firmware

@@ -22,6 +22,10 @@
 
 重要更新：
 ---
+> 2023-09-07 : 
+> * 发布easyeai-c-uiSolution-1.1.0
+>   * 更新 easyeai-api-1.1.0
+>
 > 2023-03-31 : 
 > * 发布easyeai-c-uiSolution-1.0.0
 >   * 匹配 ubuntu 系统固件
