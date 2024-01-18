@@ -1,6 +1,10 @@
 #!/bin/sh 
 
 set -e 
+alias_file=~/.bash_aliases
+if [ -e "$alias_file" ]; then
+        . $alias_file
+fi
 
 SHELL_FOLDER=$(cd "$(dirname "$0")";pwd)
 cd $SHELL_FOLDER
@@ -24,9 +28,14 @@ elif [ "$1" = "clear" ];then
 fi
 set -e
 
+QCORE_FILE=${SYSROOT}/usr/lib/libQt5Core.so.5.15.2
 if [ ! -d "Release" ]; then
 	# this cmd include create dir operation(mkdir Release/)
-	${SYSROOT}/usr/bin/qmake $APP_NAME.pro
+	if [ -e "$QCORE_FILE" ]; then
+		${SYSROOT}/usr/bin/qmake $APP_NAME.pro
+	else
+		qmake $APP_NAME.pro
+	fi
 fi
 
 make

@@ -22,23 +22,28 @@
 
 重要更新：
 ---
+> 2024-01-18 : 
+> * 发布 easyeai-c-uiSolution-1.2.0
+>   * 更新 easyeai-api-1.2.10
+>   * 配合 ubuntu 20231129之后的版本系统固件，可实现在板卡编译本仓库
+>
 > 2023-09-07 : 
-> * 发布easyeai-c-uiSolution-1.1.0
+> * 发布 easyeai-c-uiSolution-1.1.0
 >   * 更新 easyeai-api-1.1.0
 >
 > 2023-03-31 : 
-> * 发布easyeai-c-uiSolution-1.0.0
+> * 发布 easyeai-c-uiSolution-1.0.0
 >   * 匹配 ubuntu 系统固件
 >   * 匹配 easyeai-api v1.0.0
 >   * 不兼容buildroot系统固件(buildroot版本的uiSolution在本仓库的buildroot分支内)
 >
 > 2022-05-30 : 
-> * 发布easyeai-c-uiSolution-0.1.3
+> * 发布 easyeai-c-uiSolution-0.1.3
 >   * [更新] Qt方案用例 (不带调度框架)
 >   * [更新] 人脸机方案 (带调度框架)
 >
 > 2022-04-13 : 
-> * 发布easyeai-c-uiSolution-0.1.2
+> * 发布 easyeai-c-uiSolution-0.1.2
 >   * [新增] Qt方案用例 (不带调度框架)
 >   * [新增] 人脸机方案 (带调度框架)
 >
