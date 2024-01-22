@@ -7,11 +7,16 @@
 QT       += core gui
 
 CONFIG += qt c++11 console
+QMAKE_LIBS_OPENGL=
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 ## target name
 TARGET = qSolu-QDemo
+qnx: target.path = /tmp/$${TARGET}/bin
+else: unix:!android: target.path = /userdata/UiSolu
+!isEmpty(target.path): INSTALLS += target
+
 ## target type(app or lib)
 TEMPLATE = app
 
