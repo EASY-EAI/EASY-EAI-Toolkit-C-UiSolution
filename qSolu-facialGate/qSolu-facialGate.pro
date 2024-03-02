@@ -14,7 +14,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 ## target name
 TARGET = qSolu-facialGate
 qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /userdata/UiSolu
+else: unix:!android: target.path = /userdata/apps/facialGate
 !isEmpty(target.path): INSTALLS += target
 
 ## target type(app or lib)
