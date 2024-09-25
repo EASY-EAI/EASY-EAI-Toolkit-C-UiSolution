@@ -22,6 +22,11 @@ How to use：
 
 important update log:
 ---
+> 2024-09-25 : 
+> * Release easyeai-c-uiSolution-2.0.0
+>   * update easyeai-api-2.0.0
+>   * In conjunction with Ubuntu 20231129 and later versions of nano firmware, it is possible to compile this repository for the current board
+>
 > 2024-01-18 : 
 > * Release easyeai-c-uiSolution-1.2.0
 >   * update easyeai-api-1.2.10

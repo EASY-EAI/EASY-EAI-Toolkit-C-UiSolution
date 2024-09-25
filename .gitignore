@@ -29,4 +29,5 @@ Makefile
 prj/
 Release/
 
+*.deb
 #easyeai-api

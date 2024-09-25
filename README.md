@@ -22,6 +22,11 @@
 
 重要更新：
 ---
+> 2024-09-25 : 
+> * 发布 easyeai-c-uiSolution-2.0.0
+>   * 更新 easyeai-api-2.0.0(兼容性可查看[https://github.com/EASY-EAI/EASY-EAI-Toolkit-C-SDK](https://github.com/EASY-EAI/EASY-EAI-Toolkit-C-SDK))
+>   * 配合 ubuntu 20231129之后的版本系统固件，可实现在板卡编译本仓库
+>
 > 2024-01-18 : 
 > * 发布 easyeai-c-uiSolution-1.2.0
 >   * 更新 easyeai-api-1.2.10
